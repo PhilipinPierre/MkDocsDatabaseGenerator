@@ -1,0 +1,7 @@
+Need PlantUml Pico service install and running => https://plantuml.com/fr/picoweb
+	copy plantuml.jar where you want.
+	open command line at this location
+	run command => java -jar plantuml.jar -picoweb
+Java => https://docs.oracle.com/cd/E19182-01/821-0917/inst_jdk_javahome_t/index.html#:~:text=To%20set%20JAVA_HOME%2C%20do%20the,6.0_02.
+	Installation may need a restart to properly work.
+	Add or update you JAVA_HOME environnement variable to point threw you jdk folder installation like C:\Program Files\Java\jre1.8.0_331

@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MkDocsDatabaseGenerator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GraphvizDotPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Graphviz\bin\dot.exe</Value>
+    </Setting>
+    <Setting Name="PlantUmlPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\plantuml\plantuml.jar</Value>
+    </Setting>
+    <Setting Name="FolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Server" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Database" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="JavaPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Java</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
