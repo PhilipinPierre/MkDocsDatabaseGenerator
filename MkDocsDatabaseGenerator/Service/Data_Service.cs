@@ -12,6 +12,10 @@ namespace MkDocsDatabaseGenerator.Service
     {
         private const String baseConnectionString = "server = {0}; database = {1}; Trusted_Connection=True;";
 
+        private const String QueryDatabasesNaes = @"
+            SELECT name
+            FROM sys.databases
+            WHERE database_id > 5;";
         private const String QueryTableInfo = @"
             SELECT DISTINCT 
 	            s.name as [Schema_Name]
@@ -90,6 +94,32 @@ namespace MkDocsDatabaseGenerator.Service
             database = database;
             server = server;
             this.Connection = new SqlConnection(String.Format(baseConnectionString, server, database));
+        }
+
+        public Data_Service(string server)
+        {
+            database = "master";
+            server = server;
+            this.Connection = new SqlConnection(String.Format(baseConnectionString, server, database));
+        }
+
+        public ICollection<String> GetDatabases()
+        {
+            this.Connection.Open();
+            SqlCommand command = new SqlCommand(QueryTableInfo, Connection);
+            SqlDataReader dataReader = command.ExecuteReader(); ;
+
+            IList<String> values = new List<String>();
+            while (dataReader.Read())
+            {
+                var databaseName = dataReader.GetString(0);
+                values.Add(databaseName);
+            }
+
+            dataReader.Close();
+            command.Dispose();
+            this.Connection.Close();
+            return values.Distinct().OrderBy(v => v).ToList();
         }
 
         public ICollection<Table> GetTables()

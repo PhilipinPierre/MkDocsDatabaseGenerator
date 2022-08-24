@@ -9,7 +9,7 @@ namespace MkDocsDatabaseGenerator.Service
 {
     public interface IData_Service : IDisposable
     {
-
+        public ICollection<String> GetDatabases();
         public ICollection<Table> GetTables();
         public ICollection<Column> GetColumns();
         public ICollection<Reference> GetReferences();

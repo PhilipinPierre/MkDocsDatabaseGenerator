@@ -51,6 +51,12 @@ namespace MkDocsDatabaseGenerator
             Init();
         }
 
+        public DatabaseGenerator(string server)
+        {
+            this.server = server;
+            Init();
+        }
+
         private void Init()
         {
             using (IData_Service service = new Data_Service(server: server, database: database))
