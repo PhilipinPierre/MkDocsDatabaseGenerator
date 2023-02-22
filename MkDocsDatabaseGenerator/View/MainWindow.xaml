@@ -7,6 +7,10 @@
         xmlns:viewmodel="clr-namespace:MkDocsDatabaseGenerator.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{StaticResource MaterialDesignWindow}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
         Title="MkDocs Database Generator"
         Height="600"
@@ -24,7 +28,7 @@
                              Stretch="None">
                     <VisualBrush.Visual>
                         <TextBlock Text="Search"
-                                   Foreground="{DynamicResource MaterialDesignColumnHeader}" />
+                                   Foreground="{DynamicResource MaterialDesignBody}" />
                     </VisualBrush.Visual>
                 </VisualBrush>
             </Style.Resources>
