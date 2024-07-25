@@ -7,6 +7,10 @@
         xmlns:viewmodel="clr-namespace:MkDocsDatabaseGenerator.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{StaticResource MaterialDesignWindow}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         mc:Ignorable="d"
         Title="MkDocs Database Generator"
         Height="600"
@@ -24,7 +28,7 @@
                              Stretch="None">
                     <VisualBrush.Visual>
                         <TextBlock Text="Search"
-                                   Foreground="{DynamicResource MaterialDesignColumnHeader}" />
+                                   Foreground="{DynamicResource MaterialDesignBody}" />
                     </VisualBrush.Visual>
                 </VisualBrush>
             </Style.Resources>
@@ -181,11 +185,9 @@
                                             <materialDesign:PackIcon Kind="Download" />
                                         </Hyperlink>
                                 </TextBlock>
-
                             </Grid>
                         </Expander.Content>
                     </Expander>
-
                 </Grid>
                 <Grid Grid.Row="1"
                       Grid.Column="0"
@@ -292,7 +294,6 @@
                             </Grid>
                         </Expander.Content>
                     </Expander>
-
                 </Grid>
                 <TextBlock Text="Folder path"
                            ToolTip="Folder where to save the auto generated database documentation"
@@ -379,7 +380,7 @@
                 </StackPanel>
             </Grid>
 
-            <Border BorderBrush="{DynamicResource MaterialDesignValidationErrorBrush}"
+            <Border BorderBrush="{DynamicResource SecondaryHueMidBrush}"
                     BorderThickness="2,1,0,1"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -390,11 +391,10 @@
                            FontSize="15"
                            Margin="5"
                            Background="Transparent"
-                           Foreground="{DynamicResource MaterialDesignValidationErrorBrush}"
+                           Foreground="{DynamicResource MaterialDesignBody}"
                            Text="{Binding Operation}" />
-
             </Border>
-            <Border BorderBrush="{DynamicResource MaterialDesignValidationErrorBrush}"
+            <Border BorderBrush="{DynamicResource SecondaryHueMidBrush}"
                     BorderThickness="0,1,2,1"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -405,9 +405,8 @@
                            FontSize="15"
                            Margin="5"
                            Background="Transparent"
-                           Foreground="{DynamicResource MaterialDesignValidationErrorBrush}"
+                           Foreground="{DynamicResource MaterialDesignBody}"
                            Text="{Binding SubOperation}" />
-
             </Border>
 
             <ProgressBar Maximum="{Binding OperationQuantity}"
@@ -430,7 +429,6 @@
                            FontSize="20"
                            Margin="5"
                            Text="This program will replace files in folder Database if they conflict with generated files." />
-
             </Border>
 
             <Grid Grid.Column="0"

@@ -32,9 +32,9 @@
             <Trigger Property="IsFocused"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource MaterialDesignLightBackground}" />
+                        Value="{DynamicResource MaterialDesignBackground}" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MaterialDesignLightForeground}" />
+                        Value="{DynamicResource MaterialDesignBody}" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="VerticalAlignment"
@@ -46,7 +46,7 @@
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Foreground"
-                Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                Value="{DynamicResource MaterialDesignBody}" />
     </Style>
 
     <Style x:Key="TextBoxTextBlock" TargetType="TextBox"
@@ -55,9 +55,9 @@
             <Trigger Property="IsFocused"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource MaterialDesignLightBackground}" />
+                        Value="{DynamicResource MaterialDesignBackground}" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MaterialDesignLightForeground}" />
+                        Value="{DynamicResource MaterialDesignBody}" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="VerticalAlignment"
@@ -69,7 +69,7 @@
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="Foreground"
-                Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                Value="{DynamicResource MaterialDesignBody}" />
         <Setter Property="BorderThickness"
                 Value="0" />
     </Style>
@@ -80,9 +80,9 @@
             <Trigger Property="IsFocused"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource MaterialDesignLightBackground}" />
+                        Value="{DynamicResource MaterialDesignBackground}" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource MaterialDesignLightForeground}" />
+                        Value="{DynamicResource MaterialDesignBody}" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="VerticalAlignment"
