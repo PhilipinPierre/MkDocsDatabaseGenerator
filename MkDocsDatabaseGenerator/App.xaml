@@ -4,6 +4,33 @@
              xmlns:local="clr-namespace:MkDocsDatabaseGenerator"
              Startup="Application_Startup">
     <Application.Resources>
-        <ResourceDictionary Source="/View/Style/Test.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/Themes/Constants.xaml" />
+                <ResourceDictionary Source="View/Themes/References.xaml" />
+                <ResourceDictionary Source="View/Themes/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBlock}"
+                   BasedOn="{StaticResource {x:Type  TextBlock}}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}"
+                   BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+            </Style>
+            <Style TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

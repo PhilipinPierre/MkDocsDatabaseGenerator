@@ -10,39 +10,40 @@ namespace MkDocsDatabaseGenerator
 {
     public class DatabaseGenerator
     {
-        private ICollection<Table> tables;
+        private ICollection<Table>? tables;
 
         public ICollection<Table> Tables
         {
-            get { return tables; }
+            get { return tables!; }
             private set { tables = value; }
         }
 
-        private ICollection<Column> columns;
+        private ICollection<Column>? columns;
 
         public ICollection<Column> Columns
         {
-            get { return columns; }
+            get { return columns!; }
             set { columns = value; }
         }
 
-        private ICollection<Reference> references;
+        private ICollection<Reference>? references;
 
         public ICollection<Reference> References
         {
-            get { return references; }
+            get { return references!; }
             private set { references = value; }
         }
 
-        private ICollection<ReferenceBy> referenceBies;
+        private ICollection<ReferenceBy>? referenceBies;
 
         public ICollection<ReferenceBy> ReferenceBies
         {
-            get { return referenceBies; }
+            get { return referenceBies!; }
             private set { referenceBies = value; }
         }
-        private String server;
-        private String database;
+
+        private string server;
+        private string? database;
 
         public DatabaseGenerator(string server, string database)
         {
@@ -59,7 +60,7 @@ namespace MkDocsDatabaseGenerator
 
         private void Init()
         {
-            using (IData_Service service = new Data_Service(server: server, database: database))
+            using (IData_Service service = new Data_Service(server: server, database: database ?? "master"))
             {
                 // Retrieve data
 
@@ -78,36 +79,47 @@ namespace MkDocsDatabaseGenerator
                 }
                 foreach (Column column in Columns)
                 {
-                    if (column.TableName != null)
-                        column.Table = Tables.SingleOrDefault(t => t.TableName == column.TableName);
+                    if (column.TableName != null && Tables.SingleOrDefault(t => t.TableName == column.TableName) is Table table)
+                        column.Table = table;
                     column.References = References.Where(r => r.TableName == column.TableName && r.ColumnName == column.ColumnName).ToList();
                     column.ReferenceBies = ReferenceBies.Where(r => r.TableName == column.TableName && r.ColumnName == column.ColumnName).ToList();
                 }
 
                 foreach (Reference reference in References)
                 {
-                    if (reference.TableName != null)
-                        reference.Table = Tables.SingleOrDefault(t => t.TableName == reference.TableName);
-                    if (reference.Referenced_TableName != null)
-                        reference.Referenced_Table = Tables.SingleOrDefault(t => t.TableName == reference.Referenced_TableName);
-                    if (!String.IsNullOrEmpty(reference.TableName) && !String.IsNullOrEmpty(reference.ColumnName))
-                        reference.Column = Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName);
-                    if (!String.IsNullOrEmpty(reference.TableName) && !String.IsNullOrEmpty(reference.ColumnName))
-                        reference.Referenced_Column = Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName);
+                    if (reference.TableName != null
+                        && Tables.SingleOrDefault(t => t.TableName == reference.TableName) is Table table)
+                        reference.Table = table;
+                    if (reference.Referenced_TableName != null
+                        && Tables.SingleOrDefault(t => t.TableName == reference.Referenced_TableName) is Table referenced_Table)
+                        reference.Referenced_Table = referenced_Table;
+                    if (!String.IsNullOrEmpty(reference.TableName)
+                        && !String.IsNullOrEmpty(reference.ColumnName)
+                        && Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName) is Column column)
+                        reference.Column = column;
+                    if (!String.IsNullOrEmpty(reference.TableName)
+                        && !String.IsNullOrEmpty(reference.ColumnName)
+                        && Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName) is Column referenced_Column)
+                        reference.Referenced_Column = referenced_Column;
                 }
 
                 foreach (ReferenceBy reference in ReferenceBies)
                 {
-                    if (reference.TableName != null)
-                        reference.Table = Tables.SingleOrDefault(t => t.TableName == reference.TableName);
-                    if (reference.Referenced_By_TableName != null)
-                        reference.Referenced_By_Table = Tables.SingleOrDefault(t => t.TableName == reference.Referenced_By_TableName);
-                    if (!String.IsNullOrEmpty(reference.TableName) && !String.IsNullOrEmpty(reference.ColumnName))
-                        reference.Column = Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName);
-                    if (!String.IsNullOrEmpty(reference.TableName) && !String.IsNullOrEmpty(reference.ColumnName))
-                        reference.Referenced_By_Column = Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName);
+                    if (reference.TableName != null
+                        && Tables.SingleOrDefault(t => t.TableName == reference.TableName) is Table table)
+                        reference.Table = table;
+                    if (reference.Referenced_By_TableName != null
+                        && Tables.SingleOrDefault(t => t.TableName == reference.Referenced_By_TableName) is Table referenced_By_Table)
+                        reference.Referenced_By_Table = referenced_By_Table;
+                    if (!String.IsNullOrEmpty(reference.TableName)
+                        && !String.IsNullOrEmpty(reference.ColumnName)
+                        && Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName) is Column column)
+                        reference.Column = column;
+                    if (!String.IsNullOrEmpty(reference.TableName)
+                        && !String.IsNullOrEmpty(reference.ColumnName)
+                        && Columns.SingleOrDefault(c => c.TableName == reference.TableName && c.ColumnName == reference.ColumnName) is Column referenced_By_Column)
+                        reference.Referenced_By_Column = referenced_By_Column;
                 }
-
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS8618 // Un champ non-nullable doit contenir une valeur autre que Null lors de la fermeture du constructeur. Envisagez d’ajouter le modificateur « required » ou de déclarer le champ comme pouvant accepter la valeur Null.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,6 @@ namespace MkDocsDatabaseGenerator.Model
         public string Referenced_By_FK_Name { get; set; }
         public string Referenced_By_ColumnName { get; set; }
         public bool Referenced_By_ColumnNameNullable { get; set; }
-
 
         public virtual Table Table { get; set; }
         public virtual Column Column { get; set; }

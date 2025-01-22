@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utilconverter="clr-namespace:Wpf.UiUtil.Converter;assembly=Wpf.UiUtil"
+                    xmlns:converters="clr-namespace:MkDocsDatabaseGenerator.Converters">
+    <utilconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <utilconverter:BooleanToVisibilityConverter x:Key="BooleanToCollapsedConverter"
+                                                Inverse="{StaticResource True}" />
+    <utilconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityHiddenConverter"
+                                                ReserveSpace="{StaticResource True}" />
+    <utilconverter:BooleanToVisibilityConverter x:Key="BooleanToHiddenConverter"
+                                                Inverse="{StaticResource True}"
+                                                ReserveSpace="{StaticResource True}" />
+    <utilconverter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    <utilconverter:NullToVisibilityConverter x:Key="NotNullToVisibilityConverter"
+                                             Inverse="{StaticResource True}" />
+    <utilconverter:NullToVisibilityConverter x:Key="NullToVisibilityHiddenConverter"
+                                             ReserveSpace="{StaticResource True}" />
+    <utilconverter:NullToVisibilityConverter x:Key="NotNullToVisibilityHiddenConverter"
+                                             Inverse="{StaticResource True}"
+                                             ReserveSpace="{StaticResource True}" />
+    <utilconverter:BackgroundToForegroundConverter x:Key="BackgroundToForegroundConverter"
+                                                   UseTheme="{StaticResource True}" />
+    <converters:ModuloConverter x:Key="ModuloConverter" />
+    <converters:BaseModuloConverter x:Key="BaseModuloConverter" />
+    <utilconverter:NumberComparerConverter x:Key="EqualsConverter"
+                                           Equal="{StaticResource True}" />
+    <utilconverter:NumberComparerConverter x:Key="GreaterConverter"
+                                           Greater="{StaticResource True}" />
+    <utilconverter:NumberComparerConverter x:Key="GreaterOrEqualsConverter"
+                                           Equal="{StaticResource True}"
+                                           Greater="{StaticResource True}" />
+    <utilconverter:NumberComparerConverter x:Key="SmallerConverter"
+                                           Smaller="{StaticResource True}" />
+    <utilconverter:NumberComparerConverter x:Key="SmallerOrEqualsConverter"
+                                           Equal="{StaticResource True}"
+                                           Smaller="{StaticResource True}" />
+</ResourceDictionary>

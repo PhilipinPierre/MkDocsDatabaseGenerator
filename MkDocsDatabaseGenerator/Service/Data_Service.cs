@@ -1,7 +1,7 @@
 ﻿using MkDocsDatabaseGenerator.Model;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +10,15 @@ namespace MkDocsDatabaseGenerator.Service
 {
     public class Data_Service : IData_Service
     {
-        private const String baseConnectionString = "server = {0}; database = {1}; Trusted_Connection=True;";
+        private const String baseConnectionString = "server={0};database={1};Trusted_Connection=True;Encrypt=false;";
 
         private const String QueryDatabasesNaes = @"
             SELECT name
             FROM sys.databases
             WHERE database_id > 5;";
+
         private const String QueryTableInfo = @"
-            SELECT DISTINCT 
+            SELECT DISTINCT
 	            s.name as [Schema_Name]
 	            , t.name as TableName
             FROM sys.schemas AS s
@@ -25,8 +26,9 @@ namespace MkDocsDatabaseGenerator.Service
             JOIN sys.columns AS c ON c.object_id = t.object_id
             join sys.types AS ty on ty.system_type_id = c.system_type_id
             WHERE t.name <> '__RefactorLog' AND t.name <> 'sysdiagrams'";
+
         private const String QueryColumnInfo = @"
-            SELECT 
+            SELECT
 	            s.name AS [SchemaName]
 	            , tab.name AS TableName
 	            , c.column_id as ColumnId
@@ -45,8 +47,9 @@ namespace MkDocsDatabaseGenerator.Service
             LEFT OUTER JOIN sys.index_columns ic ON ic.object_id = c.object_id AND ic.column_id = c.column_id
             LEFT OUTER JOIN sys.indexes i ON ic.object_id = i.object_id AND ic.index_id = i.index_id
             WHERE tab.name <> '__RefactorLog' AND tab.name <> 'sysdiagrams'";
+
         private const String QueryReference = @"
-            SELECT  
+            SELECT
                 sch.name AS [Schema_Name],
                 tab1.name AS [Table_Name],
                 col1.name AS [Column_name],
@@ -63,8 +66,9 @@ namespace MkDocsDatabaseGenerator.Service
             INNER JOIN sys.tables tab2 ON tab2.object_id = fkc.referenced_object_id
             INNER JOIN sys.columns col2 ON col2.column_id = referenced_column_id AND col2.object_id = tab2.object_id
             WHERE tab1.name <> '__RefactorLog' AND tab1.name <> 'sysdiagrams' AND tab2.name <> '__RefactorLog' AND tab2.name <> 'sysdiagrams'";
+
         private const String QueryReferenceBy = @"
-            SELECT  
+            SELECT
                 sch.name AS [Schema_Name]
                 ,tab2.name AS [TableName]
                 ,col2.name AS [Column_Name]
@@ -82,7 +86,6 @@ namespace MkDocsDatabaseGenerator.Service
             INNER JOIN sys.columns col2 ON col2.column_id = referenced_column_id AND col2.object_id = tab2.object_id
             WHERE tab1.name <> '__RefactorLog' AND tab1.name <> 'sysdiagrams' AND tab2.name <> '__RefactorLog' AND tab2.name <> 'sysdiagrams'";
 
-
         private String database;
 
         private String server;
@@ -91,15 +94,15 @@ namespace MkDocsDatabaseGenerator.Service
 
         public Data_Service(string server, string database)
         {
-            database = database;
-            server = server;
+            this.database = database;
+            this.server = server;
             this.Connection = new SqlConnection(String.Format(baseConnectionString, server, database));
         }
 
         public Data_Service(string server)
         {
-            database = "master";
-            server = server;
+            this.database = "master";
+            this.server = server;
             this.Connection = new SqlConnection(String.Format(baseConnectionString, server, database));
         }
 
@@ -148,7 +151,7 @@ namespace MkDocsDatabaseGenerator.Service
             dataReader.Close();
             command.Dispose();
             this.Connection.Close();
-            return values.DistinctBy(v => v.TableName).OrderBy(v=> v.TableName).ToList();
+            return values.DistinctBy(v => v.TableName).OrderBy(v => v.TableName).ToList();
         }
 
         public ICollection<Column> GetColumns()
@@ -235,7 +238,7 @@ namespace MkDocsDatabaseGenerator.Service
             dataReader.Close();
             command.Dispose();
             this.Connection.Close();
-            return values.DistinctBy(v => new { v.TableName, v.ColumnName, v.Referenced_By_TableName, v.Referenced_By_ColumnName}).ToList();
+            return values.DistinctBy(v => new { v.TableName, v.ColumnName, v.Referenced_By_TableName, v.Referenced_By_ColumnName }).ToList();
         }
 
         public void Dispose()

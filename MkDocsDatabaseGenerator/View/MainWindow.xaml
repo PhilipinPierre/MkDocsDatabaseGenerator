@@ -14,41 +14,18 @@
         mc:Ignorable="d"
         Title="MkDocs Database Generator"
         Height="600"
-        Width="1000">
+        Width="1000"
+        Closing="Window_Closing">
     <Window.DataContext>
         <viewmodel:MainWindowViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="TextBox"
-               xmlns:sys="clr-namespace:System;assembly=mscorlib">
-            <Style.Resources>
-                <VisualBrush x:Key="CueBannerBrush"
-                             AlignmentX="Left"
-                             AlignmentY="Center"
-                             Stretch="None">
-                    <VisualBrush.Visual>
-                        <TextBlock Text="Search"
-                                   Foreground="{DynamicResource MaterialDesignBody}" />
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Style.Resources>
-            <Style.Triggers>
-                <Trigger Property="Text"
-                         Value="{x:Static sys:String.Empty}">
-                    <Setter Property="Background"
-                            Value="{StaticResource CueBannerBrush}" />
-                </Trigger>
-                <Trigger Property="Text"
-                         Value="{x:Null}">
-                    <Setter Property="Background"
-                            Value="{StaticResource CueBannerBrush}" />
-                </Trigger>
-                <Trigger Property="IsKeyboardFocused"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="{DynamicResource MaterialDesignBackground}" />
-                </Trigger>
-            </Style.Triggers>
+        <Style TargetType="{x:Type TextBlock}"
+       BasedOn="{StaticResource MaterialDesignTextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </Window.Resources>
     <Border BorderThickness="1"
@@ -103,18 +80,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Expander Grid.Column="0">
-                        <Expander.Header>
-                            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                    BorderThickness="0,0,0,2">
-                                <TextBlock Margin="50,0,0,4"
-                                           FontWeight="Bold"
-                                           FontSize="20"
-                                           Text="Requirements"
-                                           HorizontalAlignment="Stretch"
-                                           Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                            </Border>
-                        </Expander.Header>
+                    <Expander Grid.Column="0" Header="Requirements">
                         <Expander.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -140,7 +106,10 @@
                                            Grid.Row="0">
                                 <Hyperlink NavigateUri="https://www.python.org/downloads/"
                                            RequestNavigate="Hyperlink_RequestNavigate">
-                                            <materialDesign:PackIcon Kind="Download" />
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Download" VerticalAlignment="Center" />
+                                        <TextBlock Text="Install" VerticalAlignment="Center" />
+                                        </StackPanel>
                                         </Hyperlink>
                                 </TextBlock>
                                 <TextBlock Text="MkDocs"
@@ -148,31 +117,27 @@
                                            Grid.Row="1" />
                                 <TextBox Grid.Column="1"
                                          Grid.Row="1"
-                                         Text="pip install mkdocs"
-                                         Style="{StaticResource TextBoxTextBlock}" />
+                                         Text="pip install mkdocs" />
                                 <TextBlock Text="MkDocs Material"
                                            Grid.Column="0"
                                            Grid.Row="2" />
                                 <TextBox Grid.Column="1"
                                          Grid.Row="2"
-                                         Text="pip install mkdocs-material"
-                                         Style="{StaticResource TextBoxTextBlock}" />
+                                         Text="pip install mkdocs-material" />
 
                                 <TextBlock Text="MkDocs Strings"
                                            Grid.Column="0"
                                            Grid.Row="3" />
                                 <TextBox Grid.Column="1"
                                          Grid.Row="3"
-                                         Text="pip install mkdocstrings"
-                                         Style="{StaticResource TextBoxTextBlock}" />
+                                         Text="pip install mkdocstrings" />
 
                                 <TextBlock Text="MkDocs Print-Site"
                                            Grid.Column="0"
                                            Grid.Row="4" />
                                 <TextBox Grid.Column="1"
                                          Grid.Row="4"
-                                         Text="pip install mkdocs-print-site-plugin"
-                                         Style="{StaticResource TextBoxTextBlock}" />
+                                         Text="pip install mkdocs-print-site-plugin" />
 
                                 <TextBlock Text="Java JDK"
                                            Grid.Column="0"
@@ -197,18 +162,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Expander Grid.Column="0">
-                        <Expander.Header>
-                            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                    BorderThickness="0,0,0,2">
-                                <TextBlock Margin="50,0,0,4"
-                                           FontWeight="Bold"
-                                           FontSize="20"
-                                           Text="Settings"
-                                           HorizontalAlignment="Stretch"
-                                           Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                            </Border>
-                        </Expander.Header>
+                    <Expander Grid.Column="0" Header="Settings">
                         <Expander.Content>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -239,7 +193,6 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox Text="{Binding PlantUmlPath, Mode=TwoWay}"
                                              VerticalAlignment="Center"
-                                             Style="{StaticResource TextBoxEditabe}"
                                              Grid.Column="0"
                                              Margin="5" />
                                     <Button Grid.Column="1"
@@ -260,7 +213,6 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox Text="{Binding GraphvizDotPath, Mode=TwoWay}"
-                                             Style="{StaticResource TextBoxEditabe}"
                                              VerticalAlignment="Center"
                                              Grid.Column="0"
                                              Margin="5" />
@@ -282,7 +234,6 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox Text="{Binding JavaPath, Mode=TwoWay}"
-                                             Style="{StaticResource TextBoxEditabe}"
                                              VerticalAlignment="Center"
                                              Grid.Column="0"
                                              Margin="5" />
@@ -307,7 +258,6 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding FolderPath, Mode=TwoWay}"
-                             Style="{StaticResource TextBoxEditabe}"
                              VerticalAlignment="Center"
                              Grid.Column="0"
                              Margin="5" />
@@ -323,7 +273,6 @@
                            Grid.Column="0"
                            Margin="5" />
                 <TextBox Text="{Binding Server, Mode=TwoWay}"
-                         Style="{StaticResource TextBoxEditabe}"
                          VerticalAlignment="Center"
                          Grid.Row="3"
                          Grid.Column="1"
@@ -335,7 +284,6 @@
                            Margin="5" />
                 <TextBox Text="{Binding Database, Mode=TwoWay}"
                          VerticalAlignment="Center"
-                         Style="{StaticResource TextBoxEditabe}"
                          Grid.Row="4"
                          Grid.Column="1"
                          Margin="5" />
@@ -360,27 +308,9 @@
                           Grid.Row="6"
                           Grid.Column="1"
                           Margin="5" />
-                <StackPanel Orientation="Vertical"
-                            Grid.Row="10"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Background="Black">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="TODO"
-                                   VerticalAlignment="Top"
-                                   Margin="5"></TextBlock>
-                        <StackPanel Orientation="Vertical"
-                                    VerticalAlignment="Top">
-                            <TextBlock Text="Change theme"
-                                       Margin="5"></TextBlock>
-                            <TextBlock Text="Change primary and secondary color"
-                                       Margin="5"></TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
             </Grid>
 
-            <Border BorderBrush="{DynamicResource SecondaryHueMidBrush}"
+            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Secondary}"
                     BorderThickness="2,1,0,1"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -394,7 +324,7 @@
                            Foreground="{DynamicResource MaterialDesignBody}"
                            Text="{Binding Operation}" />
             </Border>
-            <Border BorderBrush="{DynamicResource SecondaryHueMidBrush}"
+            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Secondary}"
                     BorderThickness="0,1,2,1"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -418,7 +348,7 @@
                          Height="15"
                          Background="Transparent" />
 
-            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
                     BorderThickness="1"
                     Grid.Row="3"
                     Grid.Column="0"
@@ -442,10 +372,20 @@
                         Grid.Column="0"
                         Margin="5"
                         Command="{Binding GenerateDocumentationCommand}" />
+                <Button Content="Cancel"
+                        Grid.Column="0"
+                        Margin="5"
+                        Command="{Binding GenerateDocumentationCancelCommand}"
+                        Visibility="{Binding GenerateDocumentationCommand.IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Button Content="Merge generate and custom"
                         Grid.Column="1"
                         Margin="5"
                         Command="{Binding MergeGeneratedDocumentationCommand}" />
+                <Button Content="Cancel"
+                        Grid.Column="1"
+                        Margin="5"
+                        Command="{Binding MergeGeneratedDocumentationCancelCommand}"
+                        Visibility="{Binding MergeGeneratedDocumentationCommand.IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
             <Grid Grid.Column="1"
                   Grid.Row="4"
@@ -458,10 +398,60 @@
                         Grid.Column="0"
                         Margin="5"
                         Command="{Binding RegenerateYamlCommand}" />
-                <Button Content="{Binding StartStopServerButton}"
+                <Button Content="Cancel"
+                        Grid.Column="0"
+                        
+                        Margin="5"
+                        Command="{Binding RegenerateYamlCancelCommand}"
+                        Visibility="{Binding RegenerateYamlCommand.IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Button Content="Start MkDocs Server"
                         Grid.Column="1"
                         Margin="5"
-                        Command="{Binding StartStopServerCommand}" />
+                        Command="{Binding StartStopServerCommand}" >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButton}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding StartStopServerCommand.IsRunning}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <DockPanel LastChildFill="True"
+                        Grid.Column="1"
+                        Margin="5">
+                    <Button Content="Cancel"
+                        DockPanel.Dock="Right"
+                        Command="{Binding StartStopServerCancelCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButton}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding StartStopServerCommand.IsRunning}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Content="Stop MkDocs Server"
+                        Grid.Column="1"
+                        Margin="5"
+                        Command="{Binding StartStopServerCancelCommand}" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButton}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsServerStart}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DockPanel>
             </Grid>
         </Grid>
     </Border>

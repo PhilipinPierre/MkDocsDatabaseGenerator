@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Interop;
 using System.Windows;
+using MkDocsDatabaseGenerator.View;
 
 namespace MkDocsDatabaseGenerator
 {
@@ -122,16 +123,21 @@ namespace MkDocsDatabaseGenerator
             [PreserveSig] int Compare();  // not fully defined
         }
 
-        public virtual string FileNameLabel { get; set; }
+        public virtual string? FileNameLabel { get; set; }
         public virtual bool ForceFileSystem { get; set; }
-        public virtual string InputPath { get; set; }
-        public virtual string OkButtonLabel { get; set; }
-        public virtual string ResultName { get; protected set; }
-        public virtual string ResultPath { get; protected set; }
-        public virtual string Title { get; set; }
+        public virtual string? InputPath { get; set; }
+        public virtual string? OkButtonLabel { get; set; }
+        public virtual string? ResultName { get; protected set; }
+        public virtual string? ResultPath { get; protected set; }
+        public virtual string? Title { get; set; }
 
         // for WPF support
-        public bool? ShowDialog(Window owner = null, bool throwOnError = false)
+        public bool? ShowDialog(bool throwOnError = false)
+        {
+            return ShowDialog(owner: App.Current.MainWindow, throwOnError: throwOnError);
+        }
+
+        public bool? ShowDialog(Window owner, bool throwOnError = false)
         {
             owner ??= Application.Current.MainWindow;
             return ShowDialog(owner != null ? new WindowInteropHelper(owner).Handle : IntPtr.Zero, throwOnError);
@@ -222,7 +228,7 @@ namespace MkDocsDatabaseGenerator
         private static extern IntPtr GetDesktopWindow();
 
         [DllImport("shell32")]
-        private static extern int SHCreateItemFromParsingName([MarshalAs(UnmanagedType.LPWStr)] string pszPath, IBindCtx pbc, [MarshalAs(UnmanagedType.LPStruct)] Guid riid, out IShellItem ppv);
+        private static extern int SHCreateItemFromParsingName([MarshalAs(UnmanagedType.LPWStr)] string pszPath, IBindCtx? pbc, [MarshalAs(UnmanagedType.LPStruct)] Guid riid, out IShellItem ppv);
 
 #pragma warning disable IDE1006 // Naming Styles
 #pragma warning restore IDE1006 // Naming Styles

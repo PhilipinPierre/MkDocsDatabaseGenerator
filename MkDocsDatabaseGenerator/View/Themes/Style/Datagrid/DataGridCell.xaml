@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MaterialDesignDataGridCell}">
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Height"
+                Value="22" />
+    </Style>
+    <Style TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MaterialDesignDataGridCell}"
+           x:Key="DataGridCellStyle">
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Height"
+                Value="25" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource MaterialDesignBody}" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+                <Setter Property="TextElement.Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+            </Trigger>
+            <Trigger Property="IsEditing"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+                <Setter Property="TextElement.Foreground"
+                        Value="{DynamicResource MaterialDesignBody}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace MkDocsDatabaseGenerator.View
         {
             InitializeComponent();
         }
+
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             // for .NET Core you need to add UseShellExecute = true
@@ -34,6 +36,12 @@ namespace MkDocsDatabaseGenerator.View
                 UseShellExecute = true
             });
             e.Handled = true;
+        }
+
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Logging.Instance.CloseLogger();
+            await DependencyInjection.StopAsync();
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MkDocsDatabaseGenerator.Extension;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace MkDocsDatabaseGenerator
 {
@@ -27,11 +30,11 @@ namespace MkDocsDatabaseGenerator
         public static int CountFirstSpaces(this string t)
         {
             int nbSpaces = 0;
-            while (nbSpaces< t.Length && t[nbSpaces] == ' ')
+            while (nbSpaces < t.Length && t[nbSpaces] == ' ')
             {
                 nbSpaces++;
             }
-            return nbSpaces == t.Length? 0 : nbSpaces;
+            return nbSpaces == t.Length ? 0 : nbSpaces;
         }
 
         public static T[] Split<T>(this T[] array, int index, out T[] last)
@@ -58,19 +61,37 @@ namespace MkDocsDatabaseGenerator
                 }
             }
         }
+
+        public static async Task WriteFileAsync(this StringBuilder lines, string filePath, CancellationToken cancellationToken)
+        {
+            using (FileStream fileStream = File.OpenWrite(filePath))
+            {
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    
+                    await writer.WriteLineAsync(lines, cancellationToken: cancellationToken);
+                    await writer.FlushAsync(cancellationToken: cancellationToken);
+                }
+            }
+        }
+
         public static void WriteFile(this IEnumerable<string> lines, string filePath)
         {
             using (FileStream fileStream = File.OpenWrite(filePath))
             {
                 using (StreamWriter writer = new StreamWriter(fileStream))
                 {
-                    foreach (string line in lines)
-                    {
-                        writer.WriteLine(line);
-                    }
+                    lines.ForEach(line => writer.WriteLine(line));
                     writer.Flush();
                 }
             }
+        }
+
+        public static async Task WriteFileAsync(this IEnumerable<string> lines, string filePath, CancellationToken cancellationToken)
+        {
+            StringBuilder builder = new StringBuilder();
+            lines.ForEach(line => builder.AppendLine(line));
+            await builder.WriteFileAsync(filePath: filePath, cancellationToken: cancellationToken);
         }
     }
 }
