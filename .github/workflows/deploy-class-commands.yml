@@ -3,7 +3,7 @@ name: "Deploy MkDocs Database Generator"
 on:
   push:
     tags:
-      - "MkDocs Database Generator/v*"
+      - "MkDocs_Database_Generator/v*"
 
 env:
   PROJECT_PATH: MkDocsDatabaseGenerator/MkDocsDatabaseGenerator.csproj
